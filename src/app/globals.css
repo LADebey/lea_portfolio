@@ -17,18 +17,18 @@
 }
 
 .theme-b {
-  --background: #A9A9A9;
-  --foreground: #18181b;
-  --accent: #5A3096;
-  --accent-rgb: 90, 48, 150;
-  --card-bg: rgba(0, 0, 0, 0.06);
-  --card-bg-hover: rgba(0, 0, 0, 0.1);
-  --card-border: rgba(0, 0, 0, 0.12);
-  --card-border-hover: rgba(90, 48, 150, 0.45);
-  --text-muted: #3f3f46;
-  --glow-color: rgba(90, 48, 150, 0.25);
-  --badge-bg: rgba(90, 48, 150, 0.12);
-  --badge-text: #5A3096;
+  --background: #F8F3EF;
+  --foreground: #1e1b2e;
+  --accent: #43099F;
+  --accent-rgb: 67, 9, 159;
+  --card-bg: rgba(239, 225, 244, 0.45);
+  --card-bg-hover: rgba(239, 225, 244, 0.75);
+  --card-border: rgba(67, 9, 159, 0.12);
+  --card-border-hover: rgba(67, 9, 159, 0.4);
+  --text-muted: #5c556b;
+  --glow-color: rgba(67, 9, 159, 0.2);
+  --badge-bg: rgba(239, 225, 244, 0.8);
+  --badge-text: #43099F;
 }
 
 @theme inline {

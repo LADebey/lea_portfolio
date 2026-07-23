@@ -341,7 +341,7 @@ export default function Portfolio() {
                       className="flex items-center gap-1.5"
                     >
                       <Moon size={16} className="text-accent" />
-                      <span className="text-xs font-mono font-medium hidden sm:inline">Gris & Violet</span>
+                      <span className="text-xs font-mono font-medium hidden sm:inline">Beige & Violet</span>
                     </motion.div>
                   )}
                 </AnimatePresence>
