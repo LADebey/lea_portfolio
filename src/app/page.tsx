@@ -417,7 +417,7 @@ export default function Portfolio() {
             <div className="w-full text-center z-10">
               <h3 className="text-sm font-bold tracking-tight text-foreground">Léa Grivel</h3>
               <p className="text-[11px] font-mono text-accent mt-0.5 font-medium">
-                UX researcher & Designer orientée stratégie
+                UX Researcher & Designer orientée stratégie
               </p>
             </div>
           </motion.div>
