@@ -321,18 +321,6 @@ export default function Portfolio() {
                 <AnimatePresence mode="wait" initial={false}>
                   {theme === "a" ? (
                     <motion.div
-                      key="sun"
-                      initial={{ rotate: -90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: 90, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="flex items-center gap-1.5"
-                    >
-                      <Sun size={16} className="text-accent" />
-                      <span className="text-xs font-mono font-medium hidden sm:inline">Noir & Rose</span>
-                    </motion.div>
-                  ) : (
-                    <motion.div
                       key="moon"
                       initial={{ rotate: -90, opacity: 0 }}
                       animate={{ rotate: 0, opacity: 1 }}
@@ -342,6 +330,18 @@ export default function Portfolio() {
                     >
                       <Moon size={16} className="text-accent" />
                       <span className="text-xs font-mono font-medium hidden sm:inline">Beige & Violet</span>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="sun"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex items-center gap-1.5"
+                    >
+                      <Sun size={16} className="text-accent" />
+                      <span className="text-xs font-mono font-medium hidden sm:inline">Noir & Rose</span>
                     </motion.div>
                   )}
                 </AnimatePresence>
