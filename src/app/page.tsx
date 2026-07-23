@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { 
   Sun, 
   Moon, 
@@ -22,7 +22,11 @@ import {
   ChevronRight,
   Monitor,
   Heart,
-  Volume2
+  Volume2,
+  Globe,
+  ArrowRight,
+  Download,
+  FileText
 } from "lucide-react";
 
 // --- CUSTOM HOOKS ---
@@ -61,7 +65,7 @@ export default function Portfolio() {
   const [timeString, setTimeString] = useState("12:00:00 PM");
   const [isPlaying, setIsPlaying] = useState(true);
   const [activeTab, setActiveTab] = useState<"exp" | "edu">("exp");
-  const [selectedSkillCategory, setSelectedSkillCategory] = useState<"design" | "tech" | "all">("all");
+  const [skillTab, setSkillTab] = useState<"hard" | "soft">("hard");
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
@@ -116,7 +120,7 @@ export default function Portfolio() {
 
   // Copy Email to Clipboard
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText("hello@leamartin.design");
+    navigator.clipboard.writeText("leagrivel@hotmail.fr");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -138,60 +142,102 @@ export default function Portfolio() {
   // --- EXPERIENCE & EDUCATION DATA ---
   const experienceData = [
     {
-      period: "2024 - Present",
-      role: "Lead Product Designer",
-      company: "Villo Studio (Paris)",
-      desc: "Architecting core design systems and design-to-code pipelines using Next.js and Tailwind."
+      period: "Jan 2025 - Juil 2026",
+      role: "UX Researcher & Designer (Alternance)",
+      company: "KPMG France - Cellule DEE (Équipe EUC)",
+      desc: "Au sein de la cellule Digital Employee Experience (DEE), accompagnement de la simplification de l'environnement de travail numérique des collaborateurs. Animation d'ateliers collaboratifs (parcours, personas), conception du PoC 'Device Health' et structuration de ressources SharePoint."
     },
     {
-      period: "2022 - 2024",
-      role: "UX Architect & Developer",
-      company: "Helix Labs",
-      desc: "Designed and engineered interactive dashboard structures and spatial UX concepts."
-    },
-    {
-      period: "2020 - 2022",
-      role: "UI/UX Designer",
-      company: "Nova Agency",
-      desc: "Delivered minimalist corporate brand portals and high-fidelity product prototypes."
+      period: "Oct 2021 - Nov 2022",
+      role: "Webdesigner - Graphiste (Alternance puis CDD)",
+      company: "DN Inforeso (Hauterives)",
+      desc: "Conception d'interfaces web, création de maquettes et de prototypes. Création de l'identité visuelle et collaboration directe avec l'équipe de développement."
     }
   ];
 
   const educationData = [
     {
-      period: "2018 - 2020",
-      role: "Master of Digital Design & Interaction",
-      company: "Gobelins, l'école de l'image",
-      desc: "Specialized in advanced prototyping, motion design, and user interface architectures."
+      period: "Sept 2024 - Juil 2026",
+      role: "M2 UX Design Interactif",
+      company: "IIM Digital School (Paris Nanterre)",
+      desc: "Master spécialisé en UX Research, design d'expérience interactif, prototypage avancé et stratégie de parcours."
     },
     {
-      period: "2015 - 2018",
-      role: "Bachelor of Arts in Graphic Design",
-      company: "Sorbonne Université",
-      desc: "Grounded in classic typography, grid theory, modernist aesthetics, and human-computer interaction."
+      period: "Oct 2021 - Juil 2022",
+      role: "Licence Conceptrice Webdesigner",
+      company: "Supcréa (Grenoble)",
+      desc: "Design d'interface, conception graphique, maquettage et gestion de projets digitaux."
+    },
+    {
+      period: "Juin 2020 - Avr 2021",
+      role: "Titre Professionnel Webdesigner",
+      company: "GRETA Midi-Pyrénées Centre (Toulouse)",
+      desc: "Formation aux fondamentaux du design d'interface, du graphisme et de la création digitale."
+    },
+    {
+      period: "Sept 2015 - Juin 2016",
+      role: "Prépa Character Design",
+      company: "Créapole (Paris 01)",
+      desc: "Bases du dessin académique, étude de morphologie, univers graphiques et créativité visuelle."
+    },
+    {
+      period: "Sept 2014 - Juil 2015",
+      role: "Bac Pro Communication Visuelle (Plurimédia)",
+      company: "Lycée Corvisart (Paris 13)",
+      desc: "Chaîne graphique, typographie, mise en page et principes fondamentaux du design visuel."
     }
   ];
 
   const activeTimeline = activeTab === "exp" ? experienceData : educationData;
 
   // --- SKILLS DATA ---
-  const skillsData = [
-    { name: "Figma", level: 95, category: "design" },
-    { name: "React / Next.js", level: 90, category: "tech" },
-    { name: "Tailwind CSS", level: 95, category: "tech" },
-    { name: "Framer Motion", level: 90, category: "tech" },
-    { name: "Spline / 3D UI", level: 75, category: "design" },
-    { name: "TypeScript", level: 80, category: "tech" },
-    { name: "Typography & Layout", level: 95, category: "design" },
-    { name: "Design Systems", level: 95, category: "design" }
+  const hardSkillsCategories = [
+    {
+      category: "UX Research & Stratégie",
+      items: [
+        "Entretiens & Observation",
+        "Animation d'atelier (FigJam)",
+        "Cartographie (User Journey, Personas)",
+        "Stratégie DEX (Digital Employee Experience)"
+      ]
+    },
+    {
+      category: "Conception UX",
+      items: [
+        "Prototypage & PoC",
+        "Architecture de l'information",
+        "Design d'interface",
+        "Accessibilité numérique"
+      ]
+    },
+    {
+      category: "Outils & Transversalité",
+      items: [
+        "Figma / FigJam",
+        "Écosystème Microsoft (SharePoint, PowerApps)",
+        "Suite Adobe",
+        "Notions de code (HTML / CSS / JS / PHP)"
+      ]
+    }
   ];
 
-  const filteredSkills = selectedSkillCategory === "all" 
-    ? skillsData 
-    : skillsData.filter(s => s.category === selectedSkillCategory);
+  const softSkillsData = [
+    {
+      title: "Empathie",
+      desc: "Placer l'humain et la bienveillance au centre de chaque décision de conception."
+    },
+    {
+      title: "Esprit d'analyse",
+      desc: "Décortiquer les problèmes complexes pour proposer des solutions résilientes."
+    },
+    {
+      title: "Facilitation",
+      desc: "Fédérer les équipes, faire le pont avec la technique et encourager l'intelligence collective lors des ateliers."
+    }
+  ];
 
   // --- ANIMATION VARIANTS ---
-  const bentoContainerVariants = {
+  const bentoContainerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -202,7 +248,7 @@ export default function Portfolio() {
     }
   };
 
-  const bentoItemVariants = {
+  const bentoItemVariants: Variants = {
     hidden: { opacity: 0, y: 25, scale: 0.96 },
     show: { 
       opacity: 1, 
@@ -235,12 +281,12 @@ export default function Portfolio() {
         >
           <div className="flex items-center gap-3">
             <span className="font-mono text-xs border border-accent/20 px-2.5 py-1 rounded-full bg-accent/5 tracking-wider font-semibold">
-              VILLO SPEC v1.0
+              LG-UX SPEC v1.0
             </span>
           </div>
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs text-text-muted">
-              LÉA MARTIN • PARIS, FR
+              LÉA GRIVEL • PARIS, FR
             </span>
           </div>
         </motion.header>
@@ -263,7 +309,7 @@ export default function Portfolio() {
             <div className="flex justify-between items-start z-10">
               <div className="flex items-center gap-2 bg-accent/10 px-3 py-1.5 rounded-full border border-accent/20 text-accent">
                 <Sparkles size={14} className="animate-pulse" />
-                <span className="text-[11px] font-semibold tracking-wider font-mono uppercase">Open for Commissions</span>
+                <span className="text-[11px] font-semibold tracking-wider font-mono uppercase">Disponible</span>
               </div>
               
               {/* THEME SWITCHER */}
@@ -304,14 +350,19 @@ export default function Portfolio() {
 
             <div className="mt-8 lg:mt-0 z-10">
               <span className="text-text-muted font-mono text-xs tracking-widest uppercase block mb-1">
-                Creative Director
+                UX Researcher & Designer Orientée Stratégie
               </span>
               <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-                Léa Martin
+                Léa Grivel
               </h1>
-              <p className="text-text-muted text-sm md:text-base leading-relaxed max-w-md">
-                An expert Lead UI/UX Designer and Frontend Architect crafting pristine, high-fidelity interfaces at the intersection of geometric minimalism and advanced code.
-              </p>
+              <div className="text-text-muted text-sm leading-relaxed max-w-xl flex flex-col gap-3">
+                <p>
+                  Bonjour, je suis <strong className="text-foreground font-semibold">Léa Grivel</strong> 👋 UX Researcher & Designer orientée stratégie. Mon moteur au quotidien ? <em className="text-accent not-italic font-semibold">Décortiquer la complexité</em>. Passionnée par l'investigation et la stratégie, j'analyse les usages et lève les blocages. Mon objectif est d'aller sur le terrain pour comprendre les vrais besoins des utilisateurs, bien avant la création graphique.
+                </p>
+                <p>
+                  Je suis convaincue qu'un bon design ne se résume pas à l'esthétique. Je conçois des expériences éthiques, bienveillantes et résilientes qui rendent les utilisateurs autonomes. Mon approche s'appuie sur l'intelligence collective et la co-construction, car pour moi, la technologie doit toujours s'adapter à l'humain, et non l'inverse.
+                </p>
+              </div>
             </div>
 
             <div className="flex items-center gap-4 mt-6 lg:mt-0 z-10 border-t border-card-border pt-4">
@@ -320,94 +371,53 @@ export default function Portfolio() {
                 <div className="w-2.5 h-2.5 rounded-full bg-accent absolute" />
               </div>
               <span className="text-xs font-mono text-text-muted font-medium">
-                Designing immersive dashboards & web systems.
+                UX Research, Stratégie & Design d'expérience
               </span>
             </div>
           </motion.div>
 
-          {/* 2. DYNAMIC GEOMETRIC AVATAR CARD */}
+          {/* 2. PORTRAIT AVATAR CARD */}
           <motion.div
             variants={bentoItemVariants}
             ref={avatarGlow}
             whileHover={{ scale: 1.02 }}
             className="bento-glow-container lg:col-span-1 lg:row-span-2 rounded-3xl p-6 bg-card-bg border border-card-border hover:border-card-border-hover transition-colors duration-300 flex flex-col justify-between items-center group relative overflow-hidden"
           >
-            {/* Ambient Accent Glow behind Avatar */}
+            {/* Dynamic Theme Ambient Glow behind Portrait */}
             <div className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none">
-              <div className="w-32 h-32 rounded-full bg-accent/25 filter blur-[30px] group-hover:bg-accent/40 transition-all duration-500 avatar-glow" />
+              <div className="w-48 h-48 rounded-full bg-accent/30 filter blur-[45px] group-hover:bg-accent/50 transition-all duration-500 avatar-glow" />
             </div>
 
             <div className="w-full flex justify-between items-center z-10">
-              <span className="font-mono text-[10px] text-text-muted tracking-widest uppercase">CREATIVE ID</span>
-              <span className="font-mono text-[10px] text-accent font-semibold bg-accent/10 px-2 py-0.5 rounded-full">LM-07</span>
+              <span className="font-mono text-[10px] text-text-muted tracking-widest uppercase">UX PROFILE</span>
+              <span className="font-mono text-[10px] text-accent font-semibold bg-accent/10 px-2.5 py-0.5 rounded-full border border-accent/20">LG-UX</span>
             </div>
 
-            {/* Stunning Procedural SVG Abstract Sculpture (Avatar) */}
-            <div className="w-44 h-44 my-4 flex items-center justify-center relative z-10">
-              {/* Spinning outer rings */}
+            {/* Photo Avatar with Halo & Rings */}
+            <div className="w-48 h-56 my-2 flex items-center justify-center relative z-10">
+              {/* Spinning outer subtle dashed ring */}
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 18, ease: "linear" }}
-                className="absolute inset-0 rounded-full border border-dashed border-accent/20 flex items-center justify-center"
-              >
-                <div className="w-[150px] h-[150px] rounded-full border border-accent/10" />
-              </motion.div>
-              
-              <motion.div
-                animate={{ rotate: -360 }}
                 transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-                className="absolute inset-2 rounded-full border-2 border-double border-accent/20"
+                className="absolute inset-0 rounded-full border border-dashed border-accent/25 flex items-center justify-center pointer-events-none"
               />
 
-              {/* Main abstract design */}
-              <svg width="120" height="120" viewBox="0 0 120 120" fill="none" className="relative drop-shadow-2xl">
-                {/* Layer 1: Core Gradient Shape */}
-                <defs>
-                  <linearGradient id="avatarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.95" />
-                    <stop offset="100%" stopColor="var(--background)" stopOpacity="0.4" />
-                  </linearGradient>
-                  <filter id="shadow">
-                    <feDropShadow dx="0" dy="8" stdDeviation="6" floodColor="var(--accent)" floodOpacity="0.2" />
-                  </filter>
-                </defs>
-
-                {/* Animated Rotating Triangle inside */}
-                <motion.polygon
-                  points="60,22 93,78 27,78"
-                  fill="url(#avatarGradient)"
-                  filter="url(#shadow)"
-                  animate={{ 
-                    scale: [1, 1.05, 1],
-                    y: [0, -3, 0]
-                  }}
-                  transition={{ 
-                    repeat: Infinity, 
-                    duration: 4, 
-                    ease: "easeInOut" 
-                  }}
+              {/* Portrait Container */}
+              <div className="relative w-44 h-52 rounded-2xl overflow-hidden border border-accent/30 shadow-2xl flex items-end justify-center bg-gradient-to-b from-accent/10 to-background/60 group-hover:border-accent/60 transition-all duration-500">
+                <img
+                  src="/lea-grivel.png"
+                  alt="Léa Grivel - UX Researcher & Designer"
+                  className="w-full h-full object-cover object-top filter contrast-[1.03] group-hover:scale-105 transition-transform duration-500"
                 />
-                
-                {/* Overlaid minimal geometric elements */}
-                <circle cx="60" cy="56" r="14" fill="var(--background)" className="opacity-95" />
-                <circle cx="60" cy="56" r="6" fill="var(--accent)" />
-                
-                {/* Orbiting Satellite Dots */}
-                <motion.circle 
-                  cx="60" 
-                  cy="56" 
-                  r="35" 
-                  stroke="var(--accent)" 
-                  strokeWidth="1" 
-                  strokeDasharray="4 8"
-                />
-              </svg>
+                {/* Subtle gradient vignette at the bottom */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-60" />
+              </div>
             </div>
 
             <div className="w-full text-center z-10">
-              <h3 className="text-sm font-bold tracking-tight">Leamoji-V4 PRO</h3>
-              <p className="text-[11px] font-mono text-text-muted mt-1">
-                Generative Aesthetic Identity
+              <h3 className="text-sm font-bold tracking-tight text-foreground">Léa Grivel</h3>
+              <p className="text-[11px] font-mono text-accent mt-0.5 font-medium">
+                UX Researcher & Strategist
               </p>
             </div>
           </motion.div>
@@ -437,13 +447,13 @@ export default function Portfolio() {
                 </span>
               </h4>
               <p className="text-[10px] font-mono text-text-muted mt-1 uppercase tracking-wider">
-                Paris local time
+                Heure locale à Paris
               </p>
             </div>
 
             <div className="flex items-center gap-2 text-[11px] text-text-muted border-t border-card-border/60 pt-2 z-10">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Available for remote contracts</span>
+              <span>Disponible pour missions & opportunités</span>
             </div>
           </motion.div>
 
@@ -457,7 +467,7 @@ export default function Portfolio() {
             <div className="flex justify-between items-center z-10">
               <div className="flex items-center gap-1.5 text-text-muted">
                 <Music size={14} className="text-accent" />
-                <span className="text-xs font-mono font-medium">Favorites</span>
+                <span className="text-xs font-mono font-medium">Coups de cœur</span>
               </div>
               <button 
                 onClick={() => setIsPlaying(!isPlaying)}
@@ -483,8 +493,8 @@ export default function Portfolio() {
               </div>
 
               <div className="overflow-hidden min-w-0">
-                <h4 className="text-xs font-extrabold truncate text-foreground">Midnight City</h4>
-                <p className="text-[10px] text-text-muted font-mono truncate">M83</p>
+                <h4 className="text-xs font-extrabold truncate text-foreground">Lost</h4>
+                <p className="text-[10px] text-text-muted font-mono truncate">Linkin Park</p>
               </div>
             </div>
 
@@ -517,7 +527,7 @@ export default function Portfolio() {
             <div className="flex justify-between items-center z-10 border-b border-card-border/60 pb-4 mb-2">
               <div className="flex items-center gap-2">
                 <Briefcase size={16} className="text-accent" />
-                <h2 className="font-extrabold text-sm font-mono uppercase tracking-widest">Chronicle</h2>
+                <h2 className="font-extrabold text-sm font-mono uppercase tracking-widest">Parcours</h2>
               </div>
               
               {/* Tab Selector */}
@@ -546,7 +556,7 @@ export default function Portfolio() {
             </div>
 
             {/* Vertical Timeline */}
-            <div className="flex flex-col gap-5 my-3 z-10">
+            <div className="flex flex-col gap-5 my-3 z-10 max-h-[260px] overflow-y-auto pr-2">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeTab}
@@ -601,56 +611,93 @@ export default function Portfolio() {
           >
             <div className="flex justify-between items-center z-10 border-b border-card-border/60 pb-4 mb-2">
               <div className="flex items-center gap-2">
-                <Code2 size={16} className="text-accent" />
-                <h2 className="font-extrabold text-sm font-mono uppercase tracking-widest">Ammunition</h2>
+                <Palette size={16} className="text-accent" />
+                <h2 className="font-extrabold text-sm font-mono uppercase tracking-widest">Compétences</h2>
               </div>
 
               {/* Skills filters */}
-              <div className="flex gap-1.5 bg-background border border-card-border p-1 rounded-2xl">
-                {(["all", "design", "tech"] as const).map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setSelectedSkillCategory(cat)}
-                    className={`px-2 py-1 rounded-xl font-mono text-[9px] font-bold uppercase transition-all cursor-pointer ${
-                      selectedSkillCategory === cat 
-                        ? "bg-accent text-background" 
-                        : "text-text-muted hover:text-foreground"
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
+              <div className="flex gap-1 bg-background border border-card-border p-1 rounded-2xl">
+                <button
+                  onClick={() => setSkillTab("hard")}
+                  className={`px-3 py-1.5 rounded-xl font-mono text-[10px] font-bold transition-all cursor-pointer ${
+                    skillTab === "hard" 
+                      ? "bg-accent text-background" 
+                      : "text-text-muted hover:text-foreground"
+                  }`}
+                >
+                  Hard Skills
+                </button>
+                <button
+                  onClick={() => setSkillTab("soft")}
+                  className={`px-3 py-1.5 rounded-xl font-mono text-[10px] font-bold transition-all cursor-pointer ${
+                    skillTab === "soft" 
+                      ? "bg-accent text-background" 
+                      : "text-text-muted hover:text-foreground"
+                  }`}
+                >
+                  Soft Skills
+                </button>
               </div>
             </div>
 
-            {/* Compact Skills Grid with lit-up accent bars */}
-            <div className="grid grid-cols-2 gap-x-6 gap-y-3 my-3 z-10">
-              {filteredSkills.map((skill, index) => (
-                <div key={index} className="flex flex-col group/skill">
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-xs font-semibold truncate group-hover/skill:text-accent transition-colors">
-                      {skill.name}
-                    </span>
-                    <span className="text-[10px] font-mono text-text-muted font-semibold group-hover/skill:text-accent">
-                      {skill.level}%
-                    </span>
-                  </div>
-                  {/* Progress bar container */}
-                  <div className="h-1.5 w-full bg-background/50 rounded-full overflow-hidden border border-card-border">
-                    <motion.div 
-                      className="h-full bg-accent"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${skill.level}%` }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                    />
-                  </div>
-                </div>
-              ))}
+            {/* Skills Content Container */}
+            <div className="my-3 z-10 max-h-[260px] overflow-y-auto pr-1">
+              <AnimatePresence mode="wait">
+                {skillTab === "hard" ? (
+                  <motion.div
+                    key="hard"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.25 }}
+                    className="flex flex-col gap-4"
+                  >
+                    {hardSkillsCategories.map((cat, idx) => (
+                      <div key={idx} className="flex flex-col gap-2">
+                        <span className="text-[11px] font-mono font-bold text-accent tracking-wider uppercase">
+                          {cat.category}
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          {cat.items.map((item, iIdx) => (
+                            <span 
+                              key={iIdx}
+                              className="text-xs bg-background/60 border border-card-border hover:border-accent/40 hover:text-accent px-3 py-1.5 rounded-xl text-foreground font-medium transition-all duration-200 shadow-sm"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="soft"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.25 }}
+                    className="grid grid-cols-1 md:grid-cols-3 gap-3"
+                  >
+                    {softSkillsData.map((soft, idx) => (
+                      <div key={idx} className="p-4 rounded-2xl bg-background/50 border border-card-border hover:border-accent/40 transition-colors flex flex-col gap-1.5">
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-2 h-2 rounded-full bg-accent" />
+                          <h4 className="font-bold text-xs md:text-sm text-foreground">{soft.title}</h4>
+                        </div>
+                        <p className="text-[11px] text-text-muted leading-relaxed">
+                          {soft.desc}
+                        </p>
+                      </div>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             <div className="flex items-center gap-2 text-[10px] font-mono text-text-muted border-t border-card-border/60 pt-3 z-10">
-              <Palette size={12} className="text-accent" />
-              <span>Merging pixel perfection with optimized react engines</span>
+              <Sparkles size={12} className="text-accent" />
+              <span>Conception éthique & démarche centrée utilisateur</span>
             </div>
           </motion.div>
 
@@ -795,90 +842,109 @@ export default function Portfolio() {
             whileHover={{ scale: 1.015 }}
             className="bento-glow-container lg:col-span-2 lg:row-span-1 rounded-3xl p-6 bg-card-bg border border-card-border hover:border-card-border-hover transition-colors duration-300 flex flex-col md:flex-row justify-between items-center overflow-hidden relative gap-6"
           >
-            <div className="flex flex-col gap-1 z-10 w-full md:w-1/2">
+            <div className="flex flex-col gap-1 z-10 w-full md:w-[62%]">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-accent" />
-                <span className="font-mono text-[10px] text-accent font-extrabold uppercase tracking-widest">Connect</span>
+                <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                <span className="font-mono text-[10px] text-accent font-extrabold uppercase tracking-widest">Contact</span>
               </div>
-              <h3 className="text-lg md:text-xl font-extrabold tracking-tight mt-1">
-                Let's launch something iconic together.
+              <h3 className="text-lg md:text-xl font-extrabold tracking-tight mt-1 leading-snug">
+                Concevons des expériences éthiques et résilientes.
               </h3>
-              <p className="text-[11px] text-text-muted leading-relaxed font-mono">
-                Currently booking projects for Q3/Q4.
+              <p className="text-[11px] text-text-muted leading-relaxed font-mono mt-0.5">
+                À l'écoute d'opportunités en UX Research, Stratégie et Design.
               </p>
             </div>
 
-            {/* Email copying widget */}
-            <div className="flex flex-col gap-2 w-full md:w-1/2 z-10">
-              <div className="flex items-center justify-between px-4 py-3 rounded-2xl bg-background border border-card-border">
-                <div className="flex flex-col overflow-hidden mr-2">
-                  <span className="text-[9px] font-mono text-text-muted uppercase tracking-wider">Direct Email</span>
-                  <span className="text-xs font-bold truncate">hello@leamartin.design</span>
-                </div>
-                <button
-                  onClick={handleCopyEmail}
-                  className="p-2.5 rounded-xl bg-accent/10 text-accent hover:bg-accent hover:text-background transition-all duration-300 cursor-pointer flex-shrink-0"
-                  title="Copy email to clipboard"
-                >
-                  {copied ? <Check size={14} className="animate-scale" /> : <Copy size={14} />}
-                </button>
-              </div>
+            {/* Accent CTA Button & Email Copying Widget in Vertical Column */}
+            <div className="flex flex-col gap-2.5 w-full md:w-[38%] z-10 items-stretch md:items-end justify-center flex-shrink-0">
+              <a
+                href="mailto:leagrivel@hotmail.fr"
+                className="w-full md:w-[175px] px-4 py-2.5 rounded-2xl bg-accent text-background font-mono text-xs font-extrabold tracking-wide uppercase transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-accent/25 flex items-center justify-center gap-2 group/cta shadow-md cursor-pointer whitespace-nowrap text-center"
+              >
+                <span>Me Contacter</span>
+                <Send size={13} className="group-hover/cta:translate-x-1 group-hover/cta:-translate-y-0.5 transition-transform" />
+              </a>
 
-              {/* Dynamic Feedback Label */}
-              <AnimatePresence>
-                {copied && (
-                  <motion.span 
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="text-[10px] font-mono text-accent font-semibold text-right"
-                  >
-                    Successfully copied to clipboard!
-                  </motion.span>
+              <button
+                onClick={handleCopyEmail}
+                className="w-full md:w-[175px] px-4 py-2.5 rounded-2xl bg-background border border-card-border hover:border-accent hover:text-accent transition-all duration-300 text-xs font-mono font-medium flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+                title="Copier l'email dans le presse-papier"
+              >
+                {copied ? (
+                  <>
+                    <Check size={13} className="text-accent" />
+                    <span className="text-accent font-semibold">Copié !</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={13} />
+                    <span>Copier l'Email</span>
+                  </>
                 )}
-              </AnimatePresence>
+              </button>
             </div>
           </motion.div>
 
-          {/* 10. SOCIALS CARD */}
+          {/* 10. SOCIALS & CV CARD */}
           <motion.div
             variants={bentoItemVariants}
             ref={socialsGlow}
             whileHover={{ scale: 1.015 }}
-            className="bento-glow-container lg:col-span-2 lg:row-span-1 rounded-3xl p-6 bg-card-bg border border-card-border hover:border-card-border-hover transition-colors duration-300 flex flex-col justify-between overflow-hidden relative"
+            className="bento-glow-container lg:col-span-2 lg:row-span-1 rounded-3xl p-6 bg-card-bg border border-card-border hover:border-card-border-hover transition-colors duration-300 flex flex-col justify-between overflow-hidden relative gap-4"
           >
             <div className="flex justify-between items-center z-10">
-              <span className="font-mono text-[10px] text-text-muted tracking-widest uppercase">Global Nodes</span>
-              <span className="font-mono text-[9px] text-accent font-bold">@LEAMARTIN</span>
+              <span className="font-mono text-[10px] text-text-muted tracking-widest uppercase">Réseau & Documents</span>
+              <span className="font-mono text-[9px] text-accent font-bold">@LEAGRIVEL</span>
             </div>
 
-            <div className="grid grid-cols-4 gap-4 my-2 z-10">
-              {[
-                { icon: <Github size={20} />, label: "GitHub", href: "https://github.com" },
-                { icon: <Linkedin size={20} />, label: "LinkedIn", href: "https://linkedin.com" },
-                { icon: <Dribbble size={20} />, label: "Dribbble", href: "https://dribbble.com" },
-                { icon: <Twitter size={20} />, label: "X / Twitter", href: "https://twitter.com" }
-              ].map((soc, idx) => (
-                <a
-                  key={idx}
-                  href={soc.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center justify-center py-3 rounded-2xl bg-background border border-card-border hover:border-accent hover:text-accent transition-all duration-300 group/social-btn"
-                >
-                  <div className="group-hover/social-btn:scale-110 transition-transform duration-300">
-                    {soc.icon}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-1 z-10">
+              {/* LinkedIn Link Card */}
+              <a
+                href="https://www.linkedin.com/in/l%C3%A9a-grivel-b3b597194/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3.5 rounded-2xl bg-background border border-card-border hover:border-accent hover:text-accent transition-all duration-300 group/link"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-accent/10 text-accent group-hover/link:bg-accent group-hover/link:text-background transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                      <rect x="2" y="9" width="4" height="12" />
+                      <circle cx="4" cy="4" r="2" />
+                    </svg>
                   </div>
-                  <span className="text-[9px] font-mono mt-1.5 text-text-muted group-hover/social-btn:text-accent font-medium hidden sm:inline">
-                    {soc.label}
-                  </span>
-                </a>
-              ))}
+                  <div className="flex flex-col">
+                    <span className="text-xs font-extrabold text-foreground group-hover/link:text-accent transition-colors">LinkedIn</span>
+                    <span className="text-[10px] font-mono text-text-muted">Léa Grivel</span>
+                  </div>
+                </div>
+                <ExternalLink size={16} className="text-text-muted group-hover/link:text-accent group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+              </a>
+
+              {/* CV Download Card */}
+              <a
+                href="/CV_Lea_Grivel.pdf"
+                download="CV_Lea_Grivel.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between p-3.5 rounded-2xl bg-accent/10 border border-accent/30 hover:bg-accent hover:text-background transition-all duration-300 group/cv shadow-sm"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-accent text-background group-hover/cv:bg-background group-hover/cv:text-accent transition-colors">
+                    <FileText size={20} />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-xs font-extrabold text-accent group-hover/cv:text-background transition-colors">Télécharger mon CV</span>
+                    <span className="text-[10px] font-mono text-text-muted group-hover/cv:text-background/80 transition-colors">Format PDF</span>
+                  </div>
+                </div>
+                <Download size={16} className="text-accent group-hover/cv:text-background group-hover/cv:translate-y-0.5 transition-transform" />
+              </a>
             </div>
 
             <div className="flex justify-between items-center text-[10px] font-mono text-text-muted border-t border-card-border/60 pt-2 z-10">
-              <span>Updated July 2026</span>
-              <span>All rights reserved © Léa Martin</span>
+              <span>Mis à jour en 2026</span>
+              <span>Tous droits réservés © Léa Grivel</span>
             </div>
           </motion.div>
 
@@ -893,14 +959,10 @@ export default function Portfolio() {
         >
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-            <span>Designed & Engineered autonomously by Léa Martin</span>
+            <span>Conçu & développé pour Léa Grivel</span>
           </div>
           <div className="flex gap-4">
-            <a href="#privacy" className="hover:text-accent transition-colors">POLICIES</a>
-            <span className="text-card-border">•</span>
-            <a href="#sitemap" className="hover:text-accent transition-colors">INDEX</a>
-            <span className="text-card-border">•</span>
-            <span className="text-accent">VERSION 4.2.0</span>
+            <span className="text-accent font-semibold">VERSION 1.0.0</span>
           </div>
         </motion.footer>
 
