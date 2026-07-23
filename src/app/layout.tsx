@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Léa Martin — Lead UI/UX Designer & Creative Developer",
-  description: "The premium design-driven portfolio of Léa Martin, Lead UI/UX Designer and Creative Developer. Architecting pixel-perfect dashboards and elegant digital products.",
+  title: "Léa Grivel — UX Researcher & Designer orientée stratégie",
+  description: "Portfolio de Léa Grivel, UX Researcher & Designer orientée stratégie. Spécialisée en recherche utilisateur, stratégie DEX, investigation et conception d'expériences éthiques et résilientes.",
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
