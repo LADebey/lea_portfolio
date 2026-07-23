@@ -417,7 +417,7 @@ export default function Portfolio() {
             <div className="w-full text-center z-10">
               <h3 className="text-sm font-bold tracking-tight text-foreground">Léa Grivel</h3>
               <p className="text-[11px] font-mono text-accent mt-0.5 font-medium">
-                UX Researcher & Strategist
+                UX researcher & Designer orientée stratégie
               </p>
             </div>
           </motion.div>
@@ -597,8 +597,8 @@ export default function Portfolio() {
             </div>
 
             <div className="flex items-center justify-between text-[10px] font-mono text-text-muted border-t border-card-border/60 pt-3 z-10">
-              <span>Paris & Hybrid Contracts Only</span>
-              <span className="flex items-center gap-1">5+ Yrs Experience <ChevronRight size={10} /></span>
+              <span>Paris & Contrats Hybrides</span>
+              <span className="flex items-center gap-1">3+ ans d'expérience <ChevronRight size={10} /></span>
             </div>
           </motion.div>
 
@@ -959,7 +959,7 @@ export default function Portfolio() {
         >
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-            <span>Conçu & développé pour Léa Grivel</span>
+            <span>Conçu et développé par Léa Grivel</span>
           </div>
           <div className="flex gap-4">
             <span className="text-accent font-semibold">VERSION 1.0.0</span>
